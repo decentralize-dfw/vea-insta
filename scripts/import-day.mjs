@@ -1,0 +1,33 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const [date,sourceArg]=process.argv.slice(2);
+if(!/^\d{4}-\d{2}-\d{2}$/.test(date||'')||!sourceArg)throw Error('Usage: node scripts/import-day.mjs YYYY-MM-DD /absolute/instagram-review');
+const source=path.resolve(sourceArg),run=path.join(source,'runs',date);
+const read=file=>JSON.parse(fs.readFileSync(file,'utf8'));
+const approved=read(path.join(run,'full-review-approved.json')),coverage=read(path.join(run,'full-review-coverage.json'));
+const {voiceReasons,postKey}=await import(new URL('file:///'+path.join(source,'review.mjs').replaceAll('\\','/')));
+const start=Date.parse(coverage.window_start_utc),end=Date.parse(coverage.window_end_utc);
+if(!Number.isFinite(start)||!Number.isFinite(end)||end-start!==86400000)throw Error('A verified 24-hour publication window is required.');
+const dayOf=t=>new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(t));
+if(dayOf(end)!==date)throw Error('Date does not match the original research window.');
+const seen=new Set(),comments=[];
+for(const p of approved){
+ const key=postKey(p.post_url),published=Date.parse(p.published_at_utc);
+ if(!key||seen.has(key))throw Error('Invalid or duplicate post.');seen.add(key);
+ if(!Number.isFinite(published)||published<=start||published>end)throw Error('Post outside recorded research window: '+key);
+ if(p.vea_fit_score<8||p.vea_fit_score>10||!p.vea_fit_rationale||!['following','target','hashtag'].includes(p.stream))throw Error('Missing fit/source: '+key);
+ if(!p.all_media_seen||!p.caption_read||!p.comments_read||!p.timestamp_verified||!p.post_eligible||!p.carousel_scope_reviewed)throw Error('Incomplete editorial review: '+key);
+ if(voiceReasons(p).length)throw Error('Voice validation: '+key+' '+voiceReasons(p).join(','));
+ comments.push({key,handle:p.author_handle,url:p.post_url,comment:p.comment_draft,stream:p.stream,fit:p.vea_fit_score,rationale:p.vea_fit_rationale,published_at:p.published_at_utc,carousel_scope:p.carousel_scope,note:p.author_handle==='elinaulvio'?'İncelenen Instagram oturumunda yorumlar sınırlandırılmıştı.':null});
+}
+const hashtagCount=comments.filter(p=>p.stream==='hashtag').length;
+const note=[`${coverage.known_following} bilinen takip hesabı, ${coverage.additional_targets} ek hesap ve ${coverage.hashtags_opened} hashtag kontrol edildi.`,coverage.full_content_scan_complete?'Bulunan güncel gönderilerin içerik incelemesi tamamlandı.':'Tam içerik taraması henüz tamamlanmadı; bütün güncel gönderiler incelenmiş sayılmaz.',coverage.live_following_list_complete?'Takip envanteri doğrulandı.':'Takip envanterinin eksiksiz olduğu doğrulanmadı.',coverage.hashtag_universe_exhaustive?'':'Hashtag sonuçları Instagram’ın gösterdiği sonuçlarla sınırlıdır.',`${comments.length}/20 yorum ve ${hashtagCount}/5 hashtag taslağı.`,`Araştırma penceresi: ${coverage.window_start_utc} – ${coverage.window_end_utc}. Bu tarihli kayıt, sonradan yeniden güncel sayılmaz.`].filter(Boolean).join(' ');
+const entry={date,window_start_utc:coverage.window_start_utc,window_end_utc:coverage.window_end_utc,full_content_scan_complete:coverage.full_content_scan_complete===true,coverage_note:note,comments};
+const archivePath=path.join(root,'data/archive.json');const archive=fs.existsSync(archivePath)?read(archivePath):{schema_version:1,timezone:'Europe/Paris',days:[]};
+archive.days=archive.days.filter(d=>d.date!==date).concat(entry).sort((a,b)=>b.date.localeCompare(a.date));
+const write=(file,content)=>{fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file+'.tmp',content);fs.renameSync(file+'.tmp',file);};
+const report=['# VEA · '+date,'','İngilizce yorum taslakları. Instagram’a gönderilmedi.','',note,'',...comments.flatMap(p=>['## [@'+p.handle+']('+p.url+')','',p.comment,'',`VEA uyumu: ${p.fit}/10 · ${p.stream}`,'',p.rationale,'',...(p.note?[p.note,'']:[])])].join('\n');
+write(path.join(root,'days',date+'.md'),report+'\n');write(archivePath,JSON.stringify(archive,null,2)+'\n');
+console.log(JSON.stringify({date,comments:comments.length,hashtag_comments:hashtagCount,full_content_scan_complete:entry.full_content_scan_complete,archived_days:archive.days.length}));

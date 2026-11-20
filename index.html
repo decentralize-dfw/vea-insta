@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="color-scheme" content="light">
+  <title>VEA — Daily comments</title>
+  <link rel="stylesheet" href="viewer.css">
+  <script src="viewer.js" defer></script>
+</head>
+<body>
+  <header class="masthead"><a class="wordmark" href="./" aria-label="VEA yorum arşivi">VEA<span>Virtually Ever After</span></a><span class="edition">Instagram / Yorum arşivi</span></header>
+  <div class="layout">
+    <aside><p class="eyebrow">Günlük kayıtlar</p><nav id="dates" aria-label="Tarih seçimi"></nav><p class="aside-note">İngilizce yorum taslakları.<br>Instagram’a gönderilmez.</p></aside>
+    <main id="main">
+      <div class="intro"><p class="eyebrow" lang="en">Daily comments</p><h1 id="day">Yükleniyor…</h1><p id="summary" class="summary"></p></div>
+      <div class="toolbar"><div class="filters" aria-label="Kaynak filtresi"><button type="button" data-stream="all" aria-pressed="true">Tümü</button><button type="button" data-stream="following" aria-pressed="false">Takip edilenler</button><button type="button" data-stream="target" aria-pressed="false">Ek 100</button><button type="button" data-stream="hashtag" aria-pressed="false">Hashtag</button></div><label class="search">Hesap ara<input id="search" type="search" placeholder="@hesap" autocomplete="off"></label></div>
+      <p id="result-count" class="result-count" aria-live="polite"></p>
+      <div id="comments"></div>
+      <p id="empty" hidden>Bu filtreye uygun yorum bulunamadı.</p>
+      <details class="coverage"><summary>Günün araştırma kapsamı</summary><p id="coverage"></p><a id="report" href="./">Günlük metin kaydı</a></details>
+      <p id="error" role="alert" hidden></p>
+      <noscript>Viewer için JavaScript gerekir. <a href="days/">Günlük metin kayıtlarını açın.</a></noscript>
+    </main>
+  </div>
+  <footer>VEA / Design office <span>Günler Europe/Paris saatine göre kaydedilir.</span></footer>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
