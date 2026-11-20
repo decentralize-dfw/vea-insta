@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+if(!process.argv[2])throw Error('Usage: node scripts/export-viewer.mjs /absolute/existing-site/comments');
+const dest=path.resolve(process.argv[2]);
+fs.mkdirSync(dest,{recursive:true});
+for(const file of ['viewer.css','viewer.js'])fs.copyFileSync(path.join(root,file),path.join(dest,file));
+const html=fs.readFileSync(path.join(root,'index.html'),'utf8').replace('<body>','<body data-archive-url="https://raw.githubusercontent.com/decentralize-dfw/vea-insta/main/data/archive.json" data-report-base="https://github.com/decentralize-dfw/vea-insta/blob/main/days/">');
+fs.writeFileSync(path.join(dest,'index.html'),html);
+console.log('Viewer exported; daily data stays in vea-insta.');

@@ -25,14 +25,14 @@ function showDay(day,changeUrl=false){
  if(changeUrl){const u=new URL(location.href);u.searchParams.set('date',active.date);history.pushState(null,'',u);}
  document.title=formatDay(active.date)+' — VEA comments';$('day').textContent=formatDay(active.date);
  $('summary').textContent=active.comments.length+' yorum · '+active.comments.filter(p=>p.stream==='hashtag').length+' hashtag keşfi · Instagram’a gönderilmedi';
- $('coverage').textContent=active.coverage_note;$('report').href='days/'+active.date+'.md';
+ $('coverage').textContent=active.coverage_note;$('report').href=(document.body.dataset.reportBase||'days/')+active.date+'.md';
  for(const link of $('dates').querySelectorAll('a')){if(link.dataset.date===active.date)link.setAttribute('aria-current','date');else link.removeAttribute('aria-current');}
  renderComments();
 }
 for(const b of document.querySelectorAll('[data-stream]'))b.addEventListener('click',()=>{stream=b.dataset.stream;for(const btn of document.querySelectorAll('[data-stream]'))btn.setAttribute('aria-pressed',String(btn===b));if(active)renderComments();});
 $('search').addEventListener('input',()=>{if(active)renderComments();});
 window.addEventListener('popstate',()=>{if(archive.length)showDay(new URL(location.href).searchParams.get('date'));});
-fetch('data/archive.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('Arşiv yüklenemedi.');return r.json();}).then(data=>{
+fetch(document.body.dataset.archiveUrl||'data/archive.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('Arşiv yüklenemedi.');return r.json();}).then(data=>{
  archive=data.days.sort((a,b)=>b.date.localeCompare(a.date));
  for(const d of archive){const a=element('a',null,formatDay(d.date));a.href='?date='+d.date;a.dataset.date=d.date;a.addEventListener('click',e=>{if(e.button||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;e.preventDefault();showDay(d.date,true);});$('dates').append(a);}
  showDay(new URL(location.href).searchParams.get('date'));

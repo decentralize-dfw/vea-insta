@@ -3,6 +3,7 @@
 Virtually Ever After için tarihli Instagram yorum taslağı arşivi.
 
 - [20 Kasım 2026 kaydı](days/2026-11-20.md)
+- [Web viewer](https://virtuallyeverafter.work/comments/)
 - Viewer: `index.html`; gün bağlantısı `?date=YYYY-MM-DD`.
 - Her kayıtta tıklanabilir Instagram bağlantısı, İngilizce yorum ve VEA uyum gerekçesi bulunur.
 - Kaynaklar: bilinen takip hesapları, ayrı 100 niş hesabı ve onaylı hashtagler.
@@ -33,3 +34,5 @@ Farklı işlerden oluşan carousellerde bütün seçkinin atmosferi ve yaklaşı
 ## Viewer
 
 Bağımlılık veya build gerektirmeyen statik HTML/CSS/JavaScript. GitHub Pages için `main` dalının kök dizini kullanılabilir. Yerelde bir HTTP sunucusuyla açılmalıdır; doğrudan `file://` ile JSON yüklenmeyebilir.
+
+Mevcut VEA sitesindeki `/comments/` viewer'ı bu deponun `main/data/archive.json` dosyasını doğrudan okur. Günlük veri güncellemeleri için ana siteyi tekrar yayımlamak gerekmez. Viewer kaynaklarında değişiklik yapılırsa ana site deposundaki `comments/` kopyası da güncellenmelidir. GitHub önbelleği nedeniyle yeni verinin görünmesi birkaç dakika sürebilir.
