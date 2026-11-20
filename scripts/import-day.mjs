@@ -29,5 +29,5 @@ const archivePath=path.join(root,'data/archive.json');const archive=fs.existsSyn
 archive.days=archive.days.filter(d=>d.date!==date).concat(entry).sort((a,b)=>b.date.localeCompare(a.date));
 const write=(file,content)=>{fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file+'.tmp',content);fs.renameSync(file+'.tmp',file);};
 const report=['# VEA · '+date,'','İngilizce yorum taslakları. Instagram’a gönderilmedi.','',note,'',...comments.flatMap(p=>['## [@'+p.handle+']('+p.url+')','',p.comment,'',`VEA uyumu: ${p.fit}/10 · ${p.stream}`,'',p.rationale,'',...(p.note?[p.note,'']:[])])].join('\n');
-write(path.join(root,'days',date+'.md'),report+'\n');write(archivePath,JSON.stringify(archive,null,2)+'\n');
+write(path.join(root,'days',date+'.md'),report.trimEnd()+'\n');write(archivePath,JSON.stringify(archive,null,2)+'\n');
 console.log(JSON.stringify({date,comments:comments.length,hashtag_comments:hashtagCount,full_content_scan_complete:entry.full_content_scan_complete,archived_days:archive.days.length}));
