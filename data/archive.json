@@ -3,6 +3,75 @@
   "timezone": "Europe/Paris",
   "days": [
     {
+      "date": "2026-11-22",
+      "window_start_utc": "2026-11-21T16:59:14.165Z",
+      "window_end_utc": "2026-11-22T16:59:14.165Z",
+      "full_content_scan_complete": false,
+      "coverage_note": "158 bilinen takip hesabı, 100 ek hesap ve 25 hashtag kontrol edildi. Tam içerik taraması henüz tamamlanmadı; bütün güncel gönderiler incelenmiş sayılmaz. Takip envanterinin eksiksiz olduğu doğrulanmadı. Hashtag sonuçları Instagram’ın gösterdiği sonuçlarla sınırlıdır. 5/20 yorum ve 1/5 hashtag taslağı. Araştırma penceresi: 2026-11-21T16:59:14.165Z – 2026-11-22T16:59:14.165Z. Bu tarihli kayıt, sonradan yeniden güncel sayılmaz.",
+      "comments": [
+        {
+          "key": "DgDOtZnt-rS",
+          "handle": "zidounbossuytgallery",
+          "url": "https://www.instagram.com/zidounbossuytgallery/p/DgDOtZnt-rS/",
+          "comment": "The gloss is broken up by the leaflike folds, so the pink shifts in depth across a form that is already beautifully irregular.",
+          "stream": "following",
+          "fit": 8.5,
+          "rationale": "Seramikte obje, boşluk ve siluet ilişkisi Edetri ve Das Pieces ile somut bir bağ kuruyor.",
+          "published_at": "2026-11-22T16:29:56.000Z",
+          "carousel_scope": "single_image",
+          "note": null
+        },
+        {
+          "key": "DgCqmMnRRNC",
+          "handle": "collectiblefair",
+          "url": "https://www.instagram.com/collectiblefair/p/DgCqmMnRRNC/",
+          "comment": "The carpet and screen are used to give the pieces a room of their own. The booth feels inhabited even in an empty photograph.",
+          "stream": "following",
+          "fit": 9,
+          "rationale": "Mobilya ve giyilebilir parçaların bir küçük mimari plan içinde sunulması Das Pieces’in obje ve mekân ilişkisine yakın.",
+          "published_at": "2026-11-22T11:10:24.000Z",
+          "carousel_scope": "single_image",
+          "note": null
+        },
+        {
+          "key": "DgCWa7wJ5Mf",
+          "handle": "studiomercado",
+          "url": "https://www.instagram.com/studiomercado/p/DgCWa7wJ5Mf/",
+          "comment": "The date is set at a scale that lets it carry the whole announcement. The soft red field gives that otherwise firm typography a surprising lightness.",
+          "stream": "following",
+          "fit": 8.5,
+          "rationale": "Kültürel etkinlik bilgisinin tipografik bir kimliğe dönüştürülmesi Status Co ve decentralize* görsel sistemleriyle ilişkili.",
+          "published_at": "2026-11-22T08:16:33.000Z",
+          "carousel_scope": "single_image",
+          "note": null
+        },
+        {
+          "key": "DgCVW9JIM5u",
+          "handle": "thesteidz",
+          "url": "https://www.instagram.com/thesteidz/p/DgCVW9JIM5u/",
+          "comment": "A sense of weight is concentrated overhead, leaving the gallery floor almost empty. The room is quietly unsettled by that reversal.",
+          "stream": "following",
+          "fit": 8.5,
+          "rationale": "Bitkisel dokunun ve basit strüktürün galeri boşluğunu dönüştürmesi, VEA’nın botanik ve mekânsal sahnelemeleriyle ilişkili.",
+          "published_at": "2026-11-22T08:06:00.000Z",
+          "carousel_scope": "single_image",
+          "note": null
+        },
+        {
+          "key": "DgCdDueIQcE",
+          "handle": "fldcicilia",
+          "url": "https://www.instagram.com/fldcicilia/p/DgCdDueIQcE/",
+          "comment": "The same bundled texture is carried from the walls to the plinths. It gives the works a setting that feels continuous all the way down the passage.",
+          "stream": "hashtag",
+          "fit": 9,
+          "rationale": "Malzemenin sergileme ve dolaşım düzenini aynı anda kurması Das Pieces ve VEA'nın deneysel sergi sahnelemeleriyle örtüşüyor.",
+          "published_at": "2026-11-22T09:15:24.000Z",
+          "carousel_scope": "single_image",
+          "note": null
+        }
+      ]
+    },
+    {
       "date": "2026-11-20",
       "window_start_utc": "2026-11-19T14:33:52Z",
       "window_end_utc": "2026-11-20T14:33:52Z",
