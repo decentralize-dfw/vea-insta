@@ -17,7 +17,7 @@ function renderComments(){
   copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(p.comment);toast('Yorum kopyalandı.');}catch{const range=document.createRange();range.selectNodeContents(text);const s=window.getSelection();s.removeAllRanges();s.addRange(range);toast('Metin seçildi. Kopyalama kısayolunu kullanın.');}});
   bottom.append(element('p','fit','VEA uyumu '+p.fit+'/10'),copy);
   const detail=element('details','fit-note');detail.append(element('summary',null,'Uyum gerekçesi'),element('p',null,p.rationale));
-  article.append(top,text,bottom,detail);if(p.note)article.append(element('p','availability',p.note));$('comments').append(article);
+  article.append(top,text); if(p.comment_rationale) article.append(element('p','fit-note','Yorum gerekçesi. '+p.comment_rationale)); article.append(bottom,detail);if(p.note)article.append(element('p','availability',p.note));$('comments').append(article);
  }
 }
 function showDay(day,changeUrl=false){
